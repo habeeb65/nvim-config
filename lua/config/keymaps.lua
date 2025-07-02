@@ -19,3 +19,19 @@ vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<CR>", { desc = "Toggle Termina
 vim.keymap.set({ "n", "i", "v" }, "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
 
 vim.opt.clipboard = "unnamedplus"
+
+vim.keymap.set("n", "<F5>", function()
+  vim.cmd("w") -- Save file
+  local filetype = vim.bo.filetype
+  local filename = vim.fn.expand("%")
+
+  if filetype == "python" then
+    vim.cmd("TermExec cmd='python3 " .. filename .. "'")
+  elseif filetype == "javascript" then
+    vim.cmd("TermExec cmd='node " .. filename .. "'")
+  elseif filetype == "c" then
+    vim.cmd("TermExec cmd='gcc " .. filename .. " -o out && ./out'")
+  else
+    print("Unsupported filetype: " .. filetype)
+  end
+end, { desc = "Run file", noremap = true, silent = true })

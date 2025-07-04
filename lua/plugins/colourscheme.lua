@@ -13,6 +13,7 @@ return {
         comments = true,
         operators = false,
         folds = true,
+        emphasis = true,
       },
       strikethrough = true,
       invert_selection = false,
